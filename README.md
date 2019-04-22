@@ -67,6 +67,7 @@ Home Assistant to import the price data:
 sensor:
   - platform: mqtt
     name: 'Strømpris'
+    qos: 1
     state_topic: prices/day-ahead/current/NO1
     json_attributes_topic: prices/day-ahead/current/NO1
     value_template: '{{ value_json.price_including_vat }}'
