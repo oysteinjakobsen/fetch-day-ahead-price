@@ -41,17 +41,21 @@ const extractExchangeRate = response => {
 }
 
 const publish = message => {
-    const mqttClient = mqtt.connect(mqttUrl, {
+    console.log(`Topic: ${mqttTopic}`)
+
+    const client = mqtt.connect(mqttUrl, {
         username: mqttUsername,
         password: mqttPassword
     })
 
-    console.log(`Topic: ${mqttTopic}`)
-    
-    mqttClient.publish(mqttTopic, JSON.stringify(message), {
-        retain: true
-    }, err => {
-        mqttClient.end
+    client.on('connect', () => {
+        client.publish(mqttTopic, JSON.stringify(message), {
+            qos: 1,
+            retain: true
+        }, err => {
+            if (err) console.log(`MQTT: Got error: ${err}`)
+            client.end()
+        })
     })
 }
 
@@ -96,7 +100,6 @@ parser.addListener('end', result => {
 
             publish(message)
 
-            process.exit()
         })
     }).on('error', err => {
         console.error('ENTSO-E: Got error: ' + err.message)
@@ -108,5 +111,5 @@ https.get(entsoeUrl(priceAreaCode, entsoeToken), result => {
         parser.parseString(data)
     })
 }).on('error', err => {
-    console.error('Norges Bank: Got error: ' + err.message)
+    console.error(`Norges Bank: Got error: ${err.message}`)
 }).end()
