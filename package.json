@@ -1,0 +1,18 @@
+{
+  "name": "entsoe-da-price",
+  "version": "1.0.0",
+  "description": "Fetches day-ahead prices from ENTSO-E",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eyes": "^0.1.8",
+    "https": "^1.0.0",
+    "moment": "^2.24.0",
+    "mqtt": "^2.18.8",
+    "xml2js": "^0.4.19"
+  }
+}
