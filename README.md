@@ -26,7 +26,7 @@ The script is dependent on the following environment variables being present:
 |MQTT_URL|The url for you MQTT server, e.g. 'mqtt://127.0.0.1'|
 |MQTT_USERNAME|The MQTT server user name|
 |MQTT_PASSWORD|The MQTT server password|
-|MQTT_TOPIC|The topic to publish data to. If for example set to '/prices/day-ahead/current' the price will be published to a sub-topic for the given area, .e.g. '/prices/day-ahead/current/NO2'|
+|MQTT_TOPIC|The topic to publish data to. If for example set to 'prices/day-ahead/current' the price will be published to a sub-topic for the given area, .e.g. 'prices/day-ahead/current/NO2'|
 
 ## Command line arguments
 
@@ -47,7 +47,7 @@ export ENTSOE_TOKEN='<token>'
 export MQTT_URL='<url>'
 export MQTT_USERNAME='<username>'
 export MQTT_PASSWORD='<password>'
-export MQTT_TOPIC='/prices/day-ahead/current'
+export MQTT_TOPIC='prices/day-ahead/current'
 
 node index.js $1
 ```
@@ -67,7 +67,7 @@ Home Assistant to import the price data:
 sensor:
   - platform: mqtt
     name: 'Strømpris'
-    state_topic: /prices/day-ahead/current/NO1
-    json_attributes_topic: /prices/day-ahead/current/NO1
+    state_topic: prices/day-ahead/current/NO1
+    json_attributes_topic: prices/day-ahead/current/NO1
     value_template: '{{ value_json.price_including_vat }}'
 ```
