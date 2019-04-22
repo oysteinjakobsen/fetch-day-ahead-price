@@ -5,8 +5,7 @@ and calculates the price in NOK based on exchange rates from [Norges Bank](https
 
 The market balance area (NO1-NO5) for which to fetch the price is given as argument.
 
-The price is published to a [MQTT](https://mqtt.org) topic that can easily be consumed by [Home Assistant]
-(https://www.home-assistant.io/) and probably other smart house hubs as well.
+The price is published to a [MQTT](https://mqtt.org) topic that can easily be consumed by [Home Assistant](https://www.home-assistant.io/) and probably other smart house hubs as well.
 
 ## Installation
 
