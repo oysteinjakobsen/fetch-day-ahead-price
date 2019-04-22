@@ -1,9 +1,7 @@
 # Norwegian electric power prices
 
-Node.js script that fetches the current day-ahead price from the [ENTSO-E transarency platform API]
-(https://transparency.entsoe.eu/content/static_content/Static%20content/web%20api/Guide.html)
-and calculates the price in NOK based on exchange rates from [Norges Bank]
-(https://www.norges-bank.no/en/Statistics/open-data/available-data/).
+Node.js script that fetches the current day-ahead price from the [ENTSO-E transarency platform API](https://transparency.entsoe.eu/content/static_content/Static%20content/web%20api/Guide.html)
+and calculates the price in NOK based on exchange rates from [Norges Bank](https://www.norges-bank.no/en/Statistics/open-data/available-data/).
 
 The market balance area (NO1-NO5) for which to fetch the price is given as argument.
 
