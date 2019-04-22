@@ -96,7 +96,7 @@ parser.addListener('end', result => {
 
             publish(message)
 
-//            process.exit()
+            process.exit()
         })
     }).on('error', err => {
         console.error('ENTSO-E: Got error: ' + err.message)
