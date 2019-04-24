@@ -22,11 +22,11 @@ The script is dependent on the following environment variables being present:
 
 |Variable|Description|
 |---|---|
-|ENTSOE_TOKEN|Your ENTSO-E API token|
+|ENTSOE_TOKEN|Your ENTSO-E API token. Register to apply for a token [here](https://transparency.entsoe.eu/usrm/user/createPublicUser)|
 |MQTT_URL|The url for you MQTT server, e.g. 'mqtt://127.0.0.1'|
 |MQTT_USERNAME|The MQTT server user name|
 |MQTT_PASSWORD|The MQTT server password|
-|MQTT_TOPIC|The parent topic to publish data to. If for example set to 'prices/day-ahead/current' the price will be published to a sub-topic for the given area, .e.g. 'prices/day-ahead/current/NO2'|
+|MQTT_TOPIC|The MQTT parent topic to publish data to. If for example set to 'prices/day-ahead/current' the price will be published to a sub-topic for the given area, .e.g. 'prices/day-ahead/current/NO2'|
 
 ## Command line arguments
 
@@ -60,7 +60,7 @@ Then use **crontab -e** to configure this script to be executed at every whole h
 
 ## Integration with Home Assistant
 
-Configure a [MQTT sensor](https://www.home-assistant.io/components/sensor.mqtt/) in 
+Configure an [MQTT sensor](https://www.home-assistant.io/components/sensor.mqtt/) in 
 Home Assistant to import the price data:
 
 ```yaml
@@ -71,4 +71,17 @@ sensor:
     state_topic: prices/day-ahead/current/NO1
     json_attributes_topic: prices/day-ahead/current/NO1
     value_template: '{{ value_json.price_including_vat }}'
+```
+
+Then you can easily show a graph in the lovelace UI:
+
+```yaml
+cards:
+  - type: history-graph
+    title: Spotpris (inkl. MVA)
+    refresh_interval: 600
+    hours_to_show: 48
+    entities:
+      - entity: sensor.strompris
+        name: NO2
 ```
