@@ -14,10 +14,6 @@ const areaMapping = {
 const priceArea = process.argv[2]
 const priceAreaCode = areaMapping[priceArea]
 const entsoeToken = process.env.ENTSOE_TOKEN
-const mqttUrl = process.env.MQTT_URL
-const mqttUsername = process.env.MQTT_USERNAME
-const mqttPassword = process.env.MQTT_PASSWORD
-const mqttTopic = `${process.env.MQTT_TOPIC}/${priceArea}`
 
 console.log(`Area: ${priceArea} (${priceAreaCode})`)
 
@@ -35,12 +31,17 @@ const extractPrice = response => {
 
 const extractExchangeRate = response => {
     const json = JSON.parse(response)
-    const rateEurNok = json.dataSets[0].series['0:0:0:0'].observations['0'][0]
+    const rateEurNok = json.data.dataSets[0].series['0:0:0:0'].observations['0'][0]
 
     return rateEurNok
 }
 
-const publish = message => {
+const publishPrice = message => {
+    const mqttUrl = process.env.MQTT_URL
+    const mqttUsername = process.env.MQTT_USERNAME
+    const mqttPassword = process.env.MQTT_PASSWORD
+    const mqttTopic = `${process.env.MQTT_TOPIC}/${priceArea}`
+
     console.log(`Topic: ${mqttTopic}`)
 
     const client = mqtt.connect(mqttUrl, {
@@ -98,8 +99,7 @@ parser.addListener('end', result => {
 
             console.log(`Message: ${JSON.stringify(message)}`)
 
-            publish(message)
-
+            publishPrice(message)
         })
     }).on('error', err => {
         console.error('ENTSO-E: Got error: ' + err.message)
