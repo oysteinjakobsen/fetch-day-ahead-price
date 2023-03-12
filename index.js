@@ -67,7 +67,7 @@ const entsoeUrl = (priceArea, token) => {
 
     console.log(`Period: ${periodStart} - ${periodEnd}`)
 
-    return `https://transparency.entsoe.eu/api?documentType=A44&in_Domain=${priceArea}&out_Domain=${priceArea}&periodStart=${periodStart}&periodEnd=${periodEnd}&securityToken=${token}`
+    return `https://web-api.tp.entsoe.eu/api?documentType=A44&in_Domain=${priceArea}&out_Domain=${priceArea}&periodStart=${periodStart}&periodEnd=${periodEnd}&securityToken=${token}`
 }
 
 const round = (num, radix) => {
@@ -102,7 +102,7 @@ parser.addListener('end', result => {
             publishPrice(message)
         })
     }).on('error', err => {
-        console.error('ENTSO-E: Got error: ' + err.message)
+        console.error(`Norges Bank: Got error: ${err.message}`)
     }).end()
 })
 
@@ -111,5 +111,5 @@ https.get(entsoeUrl(priceAreaCode, entsoeToken), result => {
         parser.parseString(data)
     })
 }).on('error', err => {
-    console.error(`Norges Bank: Got error: ${err.message}`)
+    console.error(`ENTSO-E: Got error: ${err.message}`)
 }).end()
